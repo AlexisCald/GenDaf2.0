@@ -3,17 +3,18 @@ import random
 import string
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
+import pandas as pd
 from datetime import datetime
 
 # --- Configurar la conexión con Google Sheets ---
 SCOPE = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
 CREDENTIALS_FILE = "credenciales.json"  # Reemplaza con tu archivo JSON de credenciales
-SPREADSHEET_ID = "1hyOd95b9Q2F684hP3EoSDWCFcb4tyMFcgFM2GFkC20o"   # El ID de tu Google Sheets
+SPREADSHEET_NAME = "Claves Generadas"   # Reemplaza con el nombre de tu Google Sheets
 
 # Autenticación con Google Sheets
 credentials = ServiceAccountCredentials.from_json_keyfile_name(CREDENTIALS_FILE, SCOPE)
 client = gspread.authorize(credentials)
-sheet = client.open_by_key(SPREADSHEET_ID).sheet1
+sheet = client.open(SPREADSHEET_NAME).sheet1
 
 # --- Función para generar clave única ---
 def generar_clave():
