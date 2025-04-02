@@ -166,9 +166,10 @@ if st.button("Generar Clave") and seleccionados:
     data = [fecha, clave] + seleccionados + [""] * (10 - len(seleccionados))  # Rellenar espacios vacíos
     sheet.append_row(data)
 
-    # Mostrar la clave generada
-    st.success(f"Clave generada: `{clave}`")
-    st.code(clave, language="plaintext")
+# Mostrar la clave generada
+st.success(f"Clave generada: `{clave}`")
+st.text_area("Clave generada", clave, height=40)
+
 
     # Botón para copiar
     st.button("Copiar Clave", on_click=lambda: st.write(f"Clave copiada: {clave}"))
