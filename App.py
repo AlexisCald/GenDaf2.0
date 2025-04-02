@@ -9,7 +9,7 @@ from datetime import datetime
 # --- Configurar la conexión con Google Sheets ---
 SCOPE = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
 CREDENTIALS_FILE = "credenciales.json"  # Reemplaza con tu archivo JSON de credenciales
-SPREADSHEET_NAME = "Claves Generadas"   # Reemplaza con el nombre de tu Google Sheets
+SPREADSHEET_ID = "1hyOd95b9Q2F684hP3EoSDWCFcb4tyMFcgFM2GFkC20o"
 
 # Autenticación con Google Sheets
 credentials = ServiceAccountCredentials.from_json_keyfile_name(CREDENTIALS_FILE, SCOPE)
