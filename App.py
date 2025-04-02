@@ -3,18 +3,17 @@ import random
 import string
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
-import pandas as pd
 from datetime import datetime
 
 # --- Configurar la conexión con Google Sheets ---
 SCOPE = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
 CREDENTIALS_FILE = "credenciales.json"  # Reemplaza con tu archivo JSON de credenciales
-SPREADSHEET_ID = "1hyOd95b9Q2F684hP3EoSDWCFcb4tyMFcgFM2GFkC20o"
+SPREADSHEET_ID = "1hyOd95b9Q2F684hP3EoSDWCFcb4tyMFcgFM2GFkC20o"   # El ID de tu Google Sheets
 
 # Autenticación con Google Sheets
 credentials = ServiceAccountCredentials.from_json_keyfile_name(CREDENTIALS_FILE, SCOPE)
 client = gspread.authorize(credentials)
-sheet = client.open(SPREADSHEET_NAME).sheet1
+sheet = client.open_by_key(SPREADSHEET_ID).sheet1
 
 # --- Función para generar clave única ---
 def generar_clave():
@@ -153,7 +152,6 @@ proveedores = ["A-1 CARMET",
 "YI TI MOLD ENTERPRISE CO., LTD", 
 "ZHUZHOU UKO PRECISION CARBIDE CO., LTD"]
 
-
 # Selección de proveedores (máximo 10)
 seleccionados = st.multiselect("Selecciona hasta 10 proveedores:", proveedores, max_selections=10)
 
@@ -166,10 +164,9 @@ if st.button("Generar Clave") and seleccionados:
     data = [fecha, clave] + seleccionados + [""] * (10 - len(seleccionados))  # Rellenar espacios vacíos
     sheet.append_row(data)
 
-# Mostrar la clave generada
-st.success(f"Clave generada: `{clave}`")
-st.text_area("Clave generada", clave, height=40)
-
+    # Mostrar la clave generada
+    st.success(f"Clave generada: `{clave}`")
+    st.code(clave, language="plaintext")
 
     # Botón para copiar
     st.button("Copiar Clave", on_click=lambda: st.write(f"Clave copiada: {clave}"))
